@@ -316,8 +316,8 @@ public class MaxPovtor : MonoBehaviour
     }
     public void DonePlan()
     {
-        //Добавляет +1 к макс повтору. Перезапускает тренировку
-        maxPovtor += 1;
+        //Конец плана
+        //maxPovtor += 1;
         PlayerPrefs.SetInt("MaxPovtor", maxPovtor);
         PlayerPrefs.DeleteKey("FirstTrain");
         PlayerPrefs.DeleteKey("SecondTrain");
@@ -329,6 +329,7 @@ public class MaxPovtor : MonoBehaviour
 
         UnActiveDoneMarks();
 
+        PlayerPrefs.SetString("Screen", "Input");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
