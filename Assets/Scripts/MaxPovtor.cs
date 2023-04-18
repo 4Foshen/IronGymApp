@@ -53,6 +53,8 @@ public class MaxPovtor : MonoBehaviour
     public GameObject secondDoneTrain;
     public GameObject thirdDoneTrain;
 
+    public GameObject donePlan;
+
     private void Start()
     {
         screenChange = GetComponent<ScreenChange>();
@@ -79,6 +81,14 @@ public class MaxPovtor : MonoBehaviour
                 WritePlan();
             }
         }
+        //Загрузка прогресса пользователя
+        if(PlayerPrefs.HasKey("FirstTrain"))
+            DoneFirstTrain();
+        if (PlayerPrefs.HasKey("SecondTrain"))
+            DoneSecondTrain();
+        if(PlayerPrefs.HasKey("ThirdTrain"))
+            DoneThirdTrain();
+
         Debug.Log(maxPovtor);
         foreach (int el in firstPlan)
         {
@@ -111,7 +121,6 @@ public class MaxPovtor : MonoBehaviour
             secondDoneTrain.SetActive(true);
             thirdDoneTrain.SetActive(true);
         }
-        
     }
     
     //Запись максимального кол-ва повторений
@@ -274,7 +283,9 @@ public class MaxPovtor : MonoBehaviour
         //Закончить 1 треню
         el = 0;
         firstTrainScreen.SetActive(false);
-        screenChange.planScreen.SetActive(true);
+        firstButton.SetActive(false);
+        secondButton.SetActive(true);
+        firstDone.SetActive(true);
         PlayerPrefs.SetString("FirstTrain", "Done");
 
         CloseDoneButtons();
@@ -283,8 +294,10 @@ public class MaxPovtor : MonoBehaviour
     {
         //Закончить 2 треню
         el = 0;
-        firstTrainScreen.SetActive(false);
-        screenChange.planScreen.SetActive(true);
+        secondTrainScreen.SetActive(false);
+        secondButton.SetActive(false);
+        thirdButton.SetActive(true);
+        secondDone.SetActive(true);
         PlayerPrefs.SetString("SecondTrain", "Done");
 
         CloseDoneButtons();
@@ -293,8 +306,10 @@ public class MaxPovtor : MonoBehaviour
     {
         //Закончить 3 треню
         el = 0;
-        firstTrainScreen.SetActive(false);
-        screenChange.planScreen.SetActive(true);
+        thirdTrainScreen.SetActive(false);
+        thirdButton.SetActive(false);
+        donePlan.SetActive(true);
+        thirdDone.SetActive(true);
         PlayerPrefs.SetString("ThirdTrain", "Done");
 
         CloseDoneButtons();
@@ -303,9 +318,17 @@ public class MaxPovtor : MonoBehaviour
     {
         //Добавляет +1 к макс повтору. Перезапускает тренировку
         maxPovtor += 1;
+        PlayerPrefs.SetInt("MaxPovtor", maxPovtor);
         PlayerPrefs.DeleteKey("FirstTrain");
         PlayerPrefs.DeleteKey("SecondTrain");
         PlayerPrefs.DeleteKey("ThirdTrain");
+
+        firstButton.SetActive(true);
+        secondButton.SetActive(false);
+        thirdButton.SetActive(false);
+
+        UnActiveDoneMarks();
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -315,5 +338,22 @@ public class MaxPovtor : MonoBehaviour
         firstDoneTrain.SetActive(false);
         secondDoneTrain.SetActive(false);
         thirdDoneTrain.SetActive(false);
+    }
+
+    //Отключает готовность тренировок
+    private void UnActiveDoneMarks()
+    {
+        firstDone.SetActive(false);
+        secondDone.SetActive(false);
+        thirdDone.SetActive(false);
+    }
+    
+    //Возвращает из трени к плану тренировок
+    public void BackToPlan()
+    {
+        el = 0;
+        firstTrainScreen.SetActive(false);
+        secondTrainScreen.SetActive(false);
+        thirdTrainScreen.SetActive(false);
     }
 }

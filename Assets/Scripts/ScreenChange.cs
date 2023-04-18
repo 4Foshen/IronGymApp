@@ -9,7 +9,6 @@ public class ScreenChange : MonoBehaviour
     public GameObject chooseScreen;
     public GameObject inputScreen;
     public GameObject planScreen;
-    public GameObject trainScreen;
     //public GameObject fifthScreen;
 
     private string saveScreen;
