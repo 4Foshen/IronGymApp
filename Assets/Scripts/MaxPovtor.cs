@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MaxPovtor : MonoBehaviour
@@ -12,13 +14,44 @@ public class MaxPovtor : MonoBehaviour
     [SerializeField] private Text povtorText;
 
     [Header("PlanText")]
-    [SerializeField] private Text firstPlanText;
-    [SerializeField] private Text secondPlanText;
-    [SerializeField] private Text thirdPlanText;
+    public Text firstPlanText;
+    public Text secondPlanText;
+    public Text thirdPlanText;
 
     private int[] firstPlan = new int[5];
     private int[] secondPlan = new int[5];
     private int[] thirdPlan = new int[5];
+
+    private int el = 0;
+
+
+    [Header("TrainText")]
+    public Text firstTrainPlanText;
+    public Text secondTrainPlanText;
+    public Text thirdTrainPlanText;
+
+    public Text firstTrain;
+    public Text secondTrain;
+    public Text thirdTrain;
+
+    [Header("TrainScreens")]
+    public GameObject firstTrainScreen;
+    public GameObject secondTrainScreen;
+    public GameObject thirdTrainScreen;
+    public GameObject breakScreen;
+
+    [Header("Buttons")]
+    public GameObject firstButton;
+    public GameObject secondButton;
+    public GameObject thirdButton;
+
+    public GameObject firstDone;
+    public GameObject secondDone;
+    public GameObject thirdDone;
+
+    public GameObject firstDoneTrain;
+    public GameObject secondDoneTrain;
+    public GameObject thirdDoneTrain;
 
     private void Start()
     {
@@ -58,6 +91,26 @@ public class MaxPovtor : MonoBehaviour
         {
             Debug.Log(el);
         }
+    }
+    private void Update()
+    {
+        //Меняется текст в тренировке
+        firstTrainPlanText.text = firstPlanText.text;
+        secondTrainPlanText.text = secondPlanText.text;
+        thirdTrainPlanText.text = thirdPlanText.text;
+
+        firstTrain.text = firstPlan[el].ToString();
+        secondTrain.text = secondPlan[el].ToString();
+        thirdTrain.text = thirdPlan[el].ToString();
+
+        //Когда 5 треня появляется кнопка которая заканчивает треню
+        if(el == 4)
+        {
+            firstDoneTrain.SetActive(true);
+            secondDoneTrain.SetActive(true);
+            thirdDoneTrain.SetActive(true);
+        }
+        
     }
     public void WriteMax()
     {
@@ -171,5 +224,84 @@ public class MaxPovtor : MonoBehaviour
         firstPlanText.text = firstPlan[0] + "    " + firstPlan[1] + "    " + firstPlan[2] + "    " + firstPlan[3] + "    " + firstPlan[4];
         secondPlanText.text = secondPlan[0] + "    " + secondPlan[1] + "    " + secondPlan[2] + "    " + secondPlan[3] + "    " + secondPlan[4];
         thirdPlanText.text = thirdPlan[0] + "    " + thirdPlan[1] + "    " + thirdPlan[2] + "    " + thirdPlan[3] + "    " + thirdPlan[4];
+    }
+
+    public void Next()
+    {
+        //Следующий подход
+        el = el + 1;
+        BreakScreen();
+        Debug.Log(el);
+    }
+    
+    private void BreakScreen()
+    {
+        //Открыть перерыв
+        breakScreen.SetActive(true);
+    }
+
+    public void CloseBreakScreen()
+    {
+        //Закрыть перерыв
+        breakScreen.SetActive(false);
+    }
+
+    public void StartFirstTrain()
+    {
+        firstTrainScreen.SetActive(true);
+    }
+    public void StartSecondTrain()
+    {
+        secondTrainScreen.SetActive(true);
+    }
+    public void StartThirdTrain()
+    {
+        thirdTrainScreen.SetActive(true);
+    }
+
+    public void DoneFirstTrain()
+    {
+        //Закончить треню
+        el = 0;
+        firstTrainScreen.SetActive(false);
+        screenChange.planScreen.SetActive(true);
+        PlayerPrefs.SetString("FirstTrain", "Done");
+
+        CloseDoneButtons();
+    }
+    public void DoneSecondTrain()
+    {
+        //Закончить треню
+        el = 0;
+        firstTrainScreen.SetActive(false);
+        screenChange.planScreen.SetActive(true);
+        PlayerPrefs.SetString("SecondTrain", "Done");
+
+        CloseDoneButtons();
+    }
+    public void DoneThirdTrain()
+    {
+        //Закончить треню
+        el = 0;
+        firstTrainScreen.SetActive(false);
+        screenChange.planScreen.SetActive(true);
+        PlayerPrefs.SetString("ThirdTrain", "Done");
+
+        CloseDoneButtons();
+    }
+    public void DonePlan()
+    {
+        maxPovtor += 1;
+        PlayerPrefs.DeleteKey("FirstTrain");
+        PlayerPrefs.DeleteKey("SecondTrain");
+        PlayerPrefs.DeleteKey("ThirdTrain");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void CloseDoneButtons()
+    {
+        firstDoneTrain.SetActive(false);
+        secondDoneTrain.SetActive(false);
+        thirdDoneTrain.SetActive(false);
     }
 }
