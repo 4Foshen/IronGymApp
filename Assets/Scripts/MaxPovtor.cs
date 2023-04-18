@@ -56,6 +56,7 @@ public class MaxPovtor : MonoBehaviour
     private void Start()
     {
         screenChange = GetComponent<ScreenChange>();
+        //Если есть максимальное кол-во повторений, то подгружает план
         if (PlayerPrefs.HasKey("MaxPovtor"))
         {
             maxPovtor = PlayerPrefs.GetInt("MaxPovtor");
@@ -112,6 +113,8 @@ public class MaxPovtor : MonoBehaviour
         }
         
     }
+    
+    //Запись максимального кол-ва повторений
     public void WriteMax()
     {
         maxPovtor = int.Parse(inputField.text);
@@ -121,6 +124,7 @@ public class MaxPovtor : MonoBehaviour
     {
         if (maxPovtor != 0)
         {
+            //Сохраняет повторения в плеер префс
             PlayerPrefs.SetInt("MaxPovtor", maxPovtor);
             povtorText.text = "Ваше максимальное количество подтягиваний: " + maxPovtor.ToString();
 
@@ -129,7 +133,7 @@ public class MaxPovtor : MonoBehaviour
             FillArray(secondPlan, maxPovtor);
             FillArray(thirdPlan, maxPovtor);
             
-            //СтроитПлан
+            //СтроитПлан если меньше 4, план минимальный. Больше план обычный
             if(maxPovtor < 4)
             {
                 BuildPlanMin();
@@ -163,6 +167,7 @@ public class MaxPovtor : MonoBehaviour
             Debug.Log("Error");
     }
 
+    //Заполняет массив перед тем как выстроить план
     private void FillArray(int[] arr, int value)
     {
         for (int i = 0; i < arr.Length; i++)
@@ -170,6 +175,8 @@ public class MaxPovtor : MonoBehaviour
             arr[i] = value;
         }
     }
+
+    //Строит с 1 по 3 план
     private void BuildPlan()
     {
         BuildFirst();
@@ -204,6 +211,7 @@ public class MaxPovtor : MonoBehaviour
 
     private void BuildPlanMin()
     {
+        //Строит план если меньше 4 повторений
         for(int i = 0; i < firstPlan.Length; i++)
         {
             firstPlan[i] = 1;
@@ -221,6 +229,7 @@ public class MaxPovtor : MonoBehaviour
     //Записывает план из массивов в дни
     private void WritePlan()
     {
+        //Записывает массив в план тренировки
         firstPlanText.text = firstPlan[0] + "    " + firstPlan[1] + "    " + firstPlan[2] + "    " + firstPlan[3] + "    " + firstPlan[4];
         secondPlanText.text = secondPlan[0] + "    " + secondPlan[1] + "    " + secondPlan[2] + "    " + secondPlan[3] + "    " + secondPlan[4];
         thirdPlanText.text = thirdPlan[0] + "    " + thirdPlan[1] + "    " + thirdPlan[2] + "    " + thirdPlan[3] + "    " + thirdPlan[4];
@@ -228,7 +237,7 @@ public class MaxPovtor : MonoBehaviour
 
     public void Next()
     {
-        //Следующий подход
+        //Следующий подход 
         el = el + 1;
         BreakScreen();
         Debug.Log(el);
@@ -246,6 +255,7 @@ public class MaxPovtor : MonoBehaviour
         breakScreen.SetActive(false);
     }
 
+    //Открывание 1-3 тренировки
     public void StartFirstTrain()
     {
         firstTrainScreen.SetActive(true);
@@ -261,7 +271,7 @@ public class MaxPovtor : MonoBehaviour
 
     public void DoneFirstTrain()
     {
-        //Закончить треню
+        //Закончить 1 треню
         el = 0;
         firstTrainScreen.SetActive(false);
         screenChange.planScreen.SetActive(true);
@@ -271,7 +281,7 @@ public class MaxPovtor : MonoBehaviour
     }
     public void DoneSecondTrain()
     {
-        //Закончить треню
+        //Закончить 2 треню
         el = 0;
         firstTrainScreen.SetActive(false);
         screenChange.planScreen.SetActive(true);
@@ -281,7 +291,7 @@ public class MaxPovtor : MonoBehaviour
     }
     public void DoneThirdTrain()
     {
-        //Закончить треню
+        //Закончить 3 треню
         el = 0;
         firstTrainScreen.SetActive(false);
         screenChange.planScreen.SetActive(true);
@@ -291,6 +301,7 @@ public class MaxPovtor : MonoBehaviour
     }
     public void DonePlan()
     {
+        //Добавляет +1 к макс повтору. Перезапускает тренировку
         maxPovtor += 1;
         PlayerPrefs.DeleteKey("FirstTrain");
         PlayerPrefs.DeleteKey("SecondTrain");
@@ -300,6 +311,7 @@ public class MaxPovtor : MonoBehaviour
 
     private void CloseDoneButtons()
     {
+        //Деактивирует все кнопки окончания
         firstDoneTrain.SetActive(false);
         secondDoneTrain.SetActive(false);
         thirdDoneTrain.SetActive(false);
