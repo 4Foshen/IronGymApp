@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ScreenChange : MonoBehaviour
@@ -14,7 +15,8 @@ public class ScreenChange : MonoBehaviour
     private string saveScreen;
     private void Start()
     {
-        if (PlayerPrefs.HasKey("Screen"))
+        var scene = SceneManager.GetActiveScene().buildIndex;
+        if (PlayerPrefs.HasKey("Screen") && scene == 0)
         {
             saveScreen = PlayerPrefs.GetString("Screen");
             switch (saveScreen)
@@ -51,6 +53,14 @@ public class ScreenChange : MonoBehaviour
         CloseAll();
         planScreen.SetActive(true);
         PlayerPrefs.SetString("Screen", "Plan");
+    }
+    public void ToTrainers()
+    {
+        SceneManager.LoadScene("Trainers Scene");
+    }
+    public void ToMain()
+    {
+        SceneManager.LoadScene("Main Scene");
     }
     private void CloseAll()
     {
