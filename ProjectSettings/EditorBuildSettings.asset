@@ -7,10 +7,22 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/Main Scene.unity
-    guid: 3fc8acdd13e6c734bafef6554d6fdbcd
+    guid: eb9cd645063759d439be5a50a1fedd3a
   - enabled: 1
     path: Assets/Scenes/Trainers Scene.unity
     guid: b24414109c817df48a9414bb919b75ec
+  - enabled: 1
+    path: Assets/Scenes/Zhim Scene.unity
+    guid: 5ea7af109fa6bed4c9618b5cfeb610ef
+  - enabled: 1
+    path: Assets/Scenes/Biceps Scene.unity
+    guid: f8aa98a2ad71b1047beadb958aaab503
+  - enabled: 1
+    path: Assets/Scenes/Yoga Scene.unity
+    guid: 23ae18e84b3903e43acb3006889a4fd9
+  - enabled: 1
+    path: Assets/Scenes/Pilates Scene.unity
+    guid: d2cef9d68efba44468b0b4131b642c01
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: e235ec08d83e2a045a7cca8934ab2043, type: 2}
     com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: 85c3f3ed818231544bf6cacf5928e080, type: 2}

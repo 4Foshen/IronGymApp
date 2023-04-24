@@ -62,6 +62,22 @@ public class ScreenChange : MonoBehaviour
     {
         SceneManager.LoadScene("Main Scene");
     }
+    public void ToZhim()
+    {
+        SceneManager.LoadScene("Zhim Scene");
+    }
+    public void ToBiceps()
+    {
+        SceneManager.LoadScene("Biceps Scene");
+    }
+    public void ToYoga()
+    {
+        SceneManager.LoadScene("Yoga Scene");
+    }
+    public void ToPilates()
+    {
+        SceneManager.LoadScene("Pilates Scene");
+    }
     private void CloseAll()
     {
         chooseScreen.SetActive(false);
