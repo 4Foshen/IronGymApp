@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public MaxPovtor mxPovtor;
+    public GameObject breakScreen;
 
     [SerializeField]private float timerDuration = 2f * 60f;
 
@@ -52,6 +52,6 @@ public class Timer : MonoBehaviour
 
     private void TimerEnd()
     {
-        mxPovtor.CloseBreakScreen();
+        breakScreen.SetActive(false);
     }
 }

@@ -21,6 +21,8 @@ public class ScreenChange : MonoBehaviour
             saveScreen = PlayerPrefs.GetString("Screen");
             switch (saveScreen)
             {
+                case "Main":
+                    break;
                 case "Choose":
                     ToChooseScreen();
                     break;
@@ -29,6 +31,18 @@ public class ScreenChange : MonoBehaviour
                     break;
                 case "Plan":
                     ToPlanScreen();
+                    break;
+                case "Zhim":
+                    ToZhim();
+                    break;
+                case "Biceps":
+                    ToBiceps();
+                    break;
+                case "Yoga":
+                    ToYoga();
+                    break;
+                case "Pilates":
+                    ToPilates();
                     break;
                 default:
                     ToChooseScreen();
@@ -61,22 +75,27 @@ public class ScreenChange : MonoBehaviour
     public void ToMain()
     {
         SceneManager.LoadScene("Main Scene");
+        PlayerPrefs.SetString("Screen", "Main");
     }
     public void ToZhim()
     {
         SceneManager.LoadScene("Zhim Scene");
+        PlayerPrefs.SetString("Screen", "Zhim");
     }
     public void ToBiceps()
     {
         SceneManager.LoadScene("Biceps Scene");
+        PlayerPrefs.SetString("Screen", "Biceps");
     }
     public void ToYoga()
     {
         SceneManager.LoadScene("Yoga Scene");
+        PlayerPrefs.SetString("Screen", "Yoga");
     }
     public void ToPilates()
     {
         SceneManager.LoadScene("Pilates Scene");
+        PlayerPrefs.SetString("Screen", "Pilates");
     }
     private void CloseAll()
     {

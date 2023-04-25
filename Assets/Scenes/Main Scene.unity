@@ -8645,7 +8645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa0715b56e0656d4987f97e78d2fb257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mxPovtor: {fileID: 530787814}
+  breakScreen: {fileID: 1933896022}
   timerDuration: 120
   secondMinute: {fileID: 13244176}
   firstSecond: {fileID: 1819019767}
