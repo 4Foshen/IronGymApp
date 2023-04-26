@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Timer : MonoBehaviour
+public class TrainTimer : MonoBehaviour
 {
-    public GameObject breakScreen;
 
-    [SerializeField]private float timerDuration = 2f * 60f;
+    [SerializeField] private float timerDuration = 2f * 60f;
 
     private float timer;
 
@@ -22,18 +20,19 @@ public class Timer : MonoBehaviour
     private void OnEnable()
     {
         timer = timerDuration;
-        isTimer = true;   
+        isTimer = true;
     }
     private void Update()
     {
-        if(isTimer && timer > 0)
+        if (isTimer && timer > 0)
         {
             timer -= Time.deltaTime;
             UpdateTimer(timer);
         }
         else
         {
-            TimerEnd();
+            timer = 0;
+            UpdateTimer(timer);
         }
     }
     private void UpdateTimer(float time)
@@ -49,10 +48,5 @@ public class Timer : MonoBehaviour
     private void OnDisable()
     {
         isTimer = false;
-    }
-
-    private void TimerEnd()
-    {
-        breakScreen.SetActive(false);
     }
 }
